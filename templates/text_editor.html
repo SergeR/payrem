@@ -1,0 +1,24 @@
+<div class="s-editor-core-wrapper">
+    <textarea name="{$name}" id="{$params.id}" class="body">{$params.value}</textarea>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var cm = null;
+
+        cm = CodeMirror.fromTextArea(document.getElementById("{$params.id}"), {
+            mode: "htmlmixed",
+            tabMode: "indent",
+            height: "dynamic",
+            lineWrapping: true
+        });
+
+        $("#{$params.id}").change(function () {
+            cm.setValue($(this).val());
+        });
+
+        $("#{$params.id}").closest("form").submit(function () {
+            cm.save();
+        });
+    })
+</script>
