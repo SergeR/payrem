@@ -3,6 +3,8 @@
 class shopPayremPlugin extends shopPlugin
 {
     /**
+     * Список статусов заказов, пригодный для использования в настройках
+     *
      * @return array
      * @throws waException
      */
@@ -13,12 +15,14 @@ class shopPayremPlugin extends shopPlugin
         $workflow = new shopWorkflow();
         $available_states = $workflow->getAvailableStates();
 
-        foreach($available_states as $state_id=>$state_data) {
+        foreach ($available_states as $state_id => $state_data) {
 
-            $statuses[] = array(
-                'value' => $state_id,
-                'title' => $state_data['name']
-            );
+            if (!in_array($state_id, array('deleted', 'refunded'))) {
+                $statuses[] = array(
+                    'value' => $state_id,
+                    'title' => $state_data['name']
+                );
+            }
         }
 
         //waLog::log('states=' . print_r($available_states, true), 'payrem_debug.log');
@@ -40,7 +44,7 @@ class shopPayremPlugin extends shopPlugin
         $Plugin = new shopPluginModel();
 
         $payment_methods = $Plugin->listPlugins(shopPluginModel::TYPE_PAYMENT);
-        foreach($payment_methods as $payment_method) {
+        foreach ($payment_methods as $payment_method) {
             $methods[] = array(
                 'value' => $payment_method['id'],
                 'title' => $payment_method['name']
