@@ -230,7 +230,7 @@ class shopPayremSendCli extends waCliController
     private function sendRemindMail($delay, $order)
     {
         $this->view->clearAllAssign();
-        $customer = new shopCustomer("1");
+        $customer = new shopCustomer($order['contact_id']);
         $email = $customer->get('email', 'default');
         $order_url = wa()->getRouteUrl('/frontend/myOrderByCode', array('id' => $order['id'], 'code' => $order['params']['auth_code']), TRUE);
         $status = $this->workflow->getStateById($order['state_id'])->getName();
