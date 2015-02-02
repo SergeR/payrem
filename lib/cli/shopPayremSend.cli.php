@@ -1,8 +1,11 @@
 <?php
 
 /**
+ * @package Payrem.Cli
  * @author Serge Rodovnichenko <serge@syrnik.com>
- *
+ * @version 1.0.0
+ * @copyright (c) 2015, Serge Rodovnichenko
+ * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 class shopPayremSendCli extends waCliController
 {
