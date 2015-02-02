@@ -8,7 +8,7 @@
  */
 return array(
     'name'    => _wp('Payment Reminder'),
-    'icon'    => 'img/payrem.gif',
+    'img'     => 'img/pay_remind_icon_16.png',
     'version' => '1.0.0',
     'vendor'  => '670917'
 );
