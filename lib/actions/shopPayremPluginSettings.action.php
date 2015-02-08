@@ -9,19 +9,16 @@ class shopPayremPluginSettingsAction extends waViewAction
     /** @var  shopPayremPlugin */
     private $plugin;
 
-    protected function preExecute()
+    public function execute()
     {
         if (!$this->getUser()->getRights('shop', 'settings')) {
             throw new waException(_w('Access denied'));
         }
 
         $this->plugin = wa()->getPlugin('payrem');
-    }
-
-    public function execute()
-    {
         $this->getResponse()->setTitle(_wp('Payment Reminder plugin settings'));
         $this->view->assign('settings_controls', $this->getControls());
+        $this->view->assign('testsend_orders', $this->getLastOrders());
     }
 
     private function getControls()
@@ -33,5 +30,22 @@ class shopPayremPluginSettingsAction extends waViewAction
             'description_wrapper' => '<br><span class="hint">%s</span>',
             'control_wrapper'     => '<div class="name">%s</div><div class="value">%s %s</div>'
         ));
+    }
+
+    /**
+     * @return array
+     */
+    private function getLastOrders()
+    {
+        $collection = new shopOrderModel();
+
+        $orders = $collection
+            ->select('*')
+            ->order('create_datetime DESC')
+            ->limit(15)
+            ->fetchAll();
+        shopHelper::workupOrders($orders);
+
+        return $orders;
     }
 }
