@@ -32,22 +32,18 @@ class shopPayremPlugin extends shopPlugin
             }
         }
 
-        //waLog::log('states=' . print_r($available_states, true), 'payrem_debug.log');
-
         return $statuses;
     }
 
     /**
+     * Отдает список методов оплаты пригодный для использованияв качестве списка опций для стандартного элемента формы
+     * SELECT
+     *
      * @return array
      */
     public static function listPaymentMethods()
     {
-        $methods = array(
-//            array(
-//                'value' => 'all',
-//                'title' => 'Все',
-//            )
-        );
+        $methods = array();
         $Plugin = new shopPluginModel();
 
         $payment_methods = $Plugin->listPlugins(shopPluginModel::TYPE_PAYMENT);
@@ -61,6 +57,13 @@ class shopPayremPlugin extends shopPlugin
         return $methods;
     }
 
+    /**
+     * Формирует кастомизированный элемент управления с Smarty/HTML редактором
+     *
+     * @param string $name
+     * @param array $params
+     * @return string
+     */
     public static function getTextEditorControl($name, $params)
     {
 
