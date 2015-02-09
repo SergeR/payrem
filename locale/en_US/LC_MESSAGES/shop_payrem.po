@@ -29,3 +29,35 @@ msgstr ""
 #: /wa-apps/shop/plugins/payrem/lib/config/plugin.php:3
 msgid "Payment Reminder"
 msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:81
+msgid "Payment Reminder Plugin Setup"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:94
+msgid "Save"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:142
+msgid "Send test message"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:54
+msgid "Invalid e-mail"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:38
+msgid "Message sent. Check mailbox and system logs"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:58
+msgid "Invalid delay value"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:62
+msgid "Invalid order number"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginSettings.action.php:19
+msgid "Payment Reminder plugin settings"
+msgstr ""
