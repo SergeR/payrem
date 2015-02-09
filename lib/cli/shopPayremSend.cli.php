@@ -10,55 +10,46 @@
 class shopPayremSendCli extends waCliController
 {
 
-    /** @var  shopPayremPlugin */
+    /** @var shopPayremPlugin */
     private $plugin;
 
-    /** @var  shopOrderModel */
+    /** @var shopOrderModel */
     private $Order;
 
-    /** @var  shopOrderParamsModel */
+    /** @var shopOrderParamsModel */
     private $OrderParam;
 
-    /** @var  shopOrderLogModel */
+    /** @var shopOrderLogModel */
     private $OrderLog;
 
-    /** @var  waSmarty3View */
+    /** @var waSmarty3View */
     private $view;
 
-    /** @var  shopWorkflow */
+    /** @var shopWorkflow */
     private $workflow;
 
-    /** @var  array */
+    /** @var array */
     private $generalSettings;
 
+    /**
+     * @throws waException
+     */
     public function execute()
     {
-        if (!$this->plugin->getSettings('active')) {
+        if (!$this->plugin->getSettings('active') && !$this->isTestRun()) {
             return;
         }
 
         // Если включена опция удаления, посмотрим, нет ли заказов для удаления
-        if ($this->plugin->getSettings('delete')) {
-
-            $to_delete = $this->getOrdersToDelete();
-
-            if ($to_delete) {
-                while ($order = $to_delete->fetchAssoc()) {
-                    try {
-                        $result = $this->deleteOrder($order);
-                        if (!$result) {
-                            throw new waException("Failed to delete order {$order['id']}. shopWorkflowDeleteAction fail");
-                        }
-                        $this->debugLog("Successfully deleted order {$order['id']}");
-                    } catch (waException $e) {
-                        $this->debugLog($e->getMessage());
-                    }
-                }
-            }
+        // В тестовом режиме удаление не работает по-любому
+        if ($this->plugin->getSettings('delete') && !$this->isTestRun()) {
+            $this->deleteOrders();
         }
 
+        //todo: Refactor to use shopOrdersCollection
+
         // Поиск заказов для рассылки напоминаний
-        $to_remind = $this->getOrdersToRemind();
+        $to_remind = $this->isTestRun() ? $this->getTestOrder(waRequest::param('order')) : $this->getOrdersToRemind();
         $delays = $this->getDelays();
         sort($delays);
 
@@ -70,15 +61,16 @@ class shopPayremSendCli extends waCliController
                     $from_time = time() - ($delay + 1) * 86400;
                     $to_time = time() - $delay * 86400;
 
-                    if (strtotime($order['create_datetime']) >= $from_time &&
-                        strtotime($order['create_datetime']) <= $to_time &&
-                        !isset($order['params']["payrem-$delay"])
+                    if ((strtotime($order['create_datetime']) >= $from_time &&
+                            strtotime($order['create_datetime']) <= $to_time &&
+                            !isset($order['params']["payrem-$delay"])) ||
+                        $this->isTestRun()
                     ) {
                         try {
                             $order = shopHelper::workupOrders($order, TRUE);
 
                             $result = $this->sendRemindMail($delay, $order);
-                            if ($result) {
+                            if ($result && !$this->isTestRun()) {
                                 $this->OrderParam->insert(array('order_id' => $order['id'], 'name' => "payrem-$delay", 'value' => time()));
                                 $this->OrderLog->add(array(
                                     'order_id'        => $order['id'],
@@ -216,8 +208,27 @@ class shopPayremSendCli extends waCliController
         return $this->Order->query($query);
     }
 
+    private function getTestOrder($id)
+    {
+        // @formatter:off
+        $query = "SELECT " .
+            "o.* ".
+            "FROM `" . $this->Order->getTableName() . "` AS `o` ".
+            "WHERE `o`.id = $id";
+        // @formatter:on
+
+        return $this->Order->query($query);
+    }
+
+    /**
+     * @return array
+     */
     private function getDelays()
     {
+        if ($this->isTestRun()) {
+            return array(waRequest::param('delay'));
+        }
+
         // Expected an array of numerical values extracted from comma-separated string
         return array_filter(explode(',', preg_replace('/[^,\d]/', '', $this->plugin->getSettings('reminder_delay'))));
     }
@@ -237,6 +248,10 @@ class shopPayremSendCli extends waCliController
         $email = $customer->get('email', 'default');
         $order_url = wa()->getRouteUrl('/frontend/myOrderByCode', array('id' => $order['id'], 'code' => $order['params']['auth_code']), TRUE);
         $status = $this->workflow->getStateById($order['state_id'])->getName();
+
+        if ($this->isTestRun()) {
+            $email = waRequest::param('email');
+        }
 
         if (!$email) {
             throw new waException("Contact has no email");
@@ -312,6 +327,36 @@ class shopPayremSendCli extends waCliController
         }
 
         return $delete_action->run($order['id']);
+    }
+
+    /**
+     * @throws waException
+     */
+    private function deleteOrders()
+    {
+        $to_delete = $this->getOrdersToDelete();
+
+        if ($to_delete) {
+            while ($order = $to_delete->fetchAssoc()) {
+                try {
+                    $result = $this->deleteOrder($order);
+                    if (!$result) {
+                        throw new waException("Failed to delete order {$order['id']}. shopWorkflowDeleteAction fail");
+                    }
+                    $this->debugLog("Successfully deleted order {$order['id']}");
+                } catch (waException $e) {
+                    $this->debugLog($e->getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    private function isTestRun()
+    {
+        return waRequest::param('test', 0, waRequest::TYPE_INT) ? TRUE : FALSE;
     }
 
 }
