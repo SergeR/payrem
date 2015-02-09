@@ -68,7 +68,7 @@ return array(
     'message_subject' => array(
         'title'        => 'Тема сообщения',
         'description'  => 'Тема сообщения, которое будет отправлено клиенту',
-        'value'        => 'Оплатите свой заказ {$order.id} в магазине {$wa->shop->settings("name")}',
+        'value'        => 'Оплатите свой заказ {$order.id_str} в магазине {$wa->shop->settings("name")}',
         'control_type' => waHtmlControl::INPUT
     ),
 
