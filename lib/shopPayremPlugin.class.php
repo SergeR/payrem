@@ -24,7 +24,7 @@ class shopPayremPlugin extends shopPlugin
 
         foreach ($available_states as $state_id => $state_data) {
 
-            if (!in_array($state_id, array('deleted', 'refunded'))) {
+            if (!in_array($state_id, array('deleted', 'refunded', 'completed', 'paid'))) {
                 $statuses[] = array(
                     'value' => $state_id,
                     'title' => $state_data['name']
