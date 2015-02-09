@@ -12,7 +12,7 @@ return array(
         'title'        => _wp('Plugin active'),
         'description'  => '',
         'control_type' => waHtmlControl::CHECKBOX,
-        'value'        => 1
+        'value'        => 0
     ),
 
     /**
@@ -68,14 +68,22 @@ return array(
     'message_subject' => array(
         'title'        => 'Тема сообщения',
         'description'  => 'Тема сообщения, которое будет отправлено клиенту',
-        'value'        => 'Ждем оплаты заказа {$order.id}',
+        'value'        => 'Оплатите свой заказ {$order.id} в магазине {$wa->shop->settings("name")}',
         'control_type' => waHtmlControl::INPUT
     ),
 
     'message_body'    => array(
         'title'        => 'Текст сообщения',
         'description'  => 'HTML+Smarty',
-        'value'        => '',
+        'value'        => '{$end_date=strtotime($order.create_datetime)+$delay*86400}' . "\n" .
+            '<h1 style="font-face:sans-serif;font-size:16pt">Здравствуйте, {$customer->getName()|escape}!</h1>' . "\n" .
+            '<p style="font-face:sans-serif;font-size:12pt">{strtotime($order.create_datetime)|wa_date:"humandate"} вы сделали заказ в нашем интернет-магазине <i>{$wa->shop->settings("name")}</i> и выбрали способ оплаты <i>&laquo;{$order.payment_name|escape}&raquo;</i>.</p>' . "\n\n" .
+            '<p>К сожалению, оплата до сих пор не поступила. Пожалуйста, оплатите ваш заказ до {$end_date|wa_date:"humandate"}, иначе он будет отменен.</p>' . "\n\n" .
+            '<p>Если у вас возникли какие-то трудности с оплатой или любые другие вопросы относительно вашего заказа, напишите нам письмо на адрес <b><a href="mailto:{$wa->shop->settings("email")}">{$wa->shop->settings("email")|escape}</a></b> или позвоните по телефону <b style="white-space:nowrap">{$wa->shop->settings("phone")}</b>. Будем рады помочь.</p>' . "\n\n" .
+            '--<br>' . "\n" .
+            '{$wa->shop->settings("name")}<br>' . "\n" .
+            '{$wa->shop->settings("phone")}<br>' . "\n" .
+            '{$wa->shop->settings("email")}' . "\n",
         'control_type' => waHtmlControl::CUSTOM . ' ' . 'shopPayremPlugin::getTextEditorControl'
     )
 
