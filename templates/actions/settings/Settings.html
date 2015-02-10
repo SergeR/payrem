@@ -55,6 +55,11 @@
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#36780f, endColorstr=#005900);
     }
 
+    #s-plugin-payrem-sendtest button[disabled].green {
+        background-color: rgba(75, 166, 20, 0.3);
+        background-image: none;
+    }
+
     #s-plugin-payrem-sendtest-helptext {
         margin-bottom: 15px;
         border-bottom: 1px solid #808080;
@@ -68,6 +73,7 @@
     #s-plugin-payrem-sendtest .success {
         font-weight: bold;
         font-style: italic;
+        color: darkgray;
     }
 
     #s-plugin-payrem-sendtest .error {
@@ -78,7 +84,7 @@
         color: green;
     }
 </style>
-<h1>[`Payment Reminder Plugin Setup`]</h1>
+<h1>{_wp('Payment Reminder Plugin Setup')}</h1>
 <div class="fields form">
     <form action="?module=plugins&id=payrem&action=save" method="post" id="plugins-settings-form"
           enctype="multipart/form-data" target="plugins-settings-iframe">
@@ -129,7 +135,7 @@
                     <input type="number" min="1" name="sendtest[delay]" id="s-plugin-payrem-sendtest-delay-input">
                 </div>
                 <div style="margin-top: 20px">
-                    <button type="button" class="green" id="s-plugin-payrem-test-btn">[`Send test message`]</button>
+                    <button type="button" class="green" id="s-plugin-payrem-test-btn">{_wp('Send test message')}</button>
                     <span id="s-plugin-payrem-sendtest-result"></span>
                 </div>
             </div>
@@ -143,20 +149,28 @@
             $.payrem = {
                 init: function () {
                     $("#s-plugin-payrem-test-btn").unbind('click').click(function () {
+                        $("#s-plugin-payrem-sendtest-result").html('<i class="icon16 loading"></i> '+'{_wp('Sending…')}');
+                        $("#s-plugin-payrem-test-btn").prop("disabled", true);
                         $.post(
                                 "?plugin=payrem&action=testsend",
                                 $("input,select", "#s-plugin-payrem-sendtest").serialize(),
                                 function (r) {
                                     $("#s-plugin-payrem-sendtest-result").removeClass('success error');
                                     if(r.status == 'ok') {
-                                        $("#s-plugin-payrem-sendtest-result").addClass('success').text(r.data);
+                                        $("#s-plugin-payrem-sendtest-result").addClass('success').html('<i class="icon16 yes"></i> '+r.data);
                                     }
                                     if(r.status == 'fail') {
-                                        $("#s-plugin-payrem-sendtest-result").addClass('error').text(r.errors[0][0]);
+                                        $("#s-plugin-payrem-sendtest-result").addClass('error').html('<i class="icon16 no"></i> '+r.errors[0][0]);
                                     }
+
                                 },
                                 'json'
-                        )
+                        ).always(function(){
+                            $("#s-plugin-payrem-test-btn").removeProp('disabled');
+                            setTimeout(function(){
+                                $("#s-plugin-payrem-sendtest-result").removeClass('success error').html('');
+                            }, 15000);
+                        })
                     })
                 }
             }
