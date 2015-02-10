@@ -1,4 +1,5 @@
 <style>
+    #s-plugin-payrem-cron-help,
     #s-plugin-payrem-sendtest {
         padding: 7px 20px;
         margin: 10px;
@@ -12,6 +13,36 @@
         box-shadow: 0 0 0 4px #F8F8FF;
         text-shadow: 1px 1px 2px #F8F8FF;
         font-weight: normal;
+    }
+
+    #s-plugin-payrem-cron-help {
+        background: #d9edf7;
+        border-color: #72B5FF;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-box-shadow: 0 0 0 4px #d9edf7;
+        -webkit-box-shadow: 0 0 0 4px #d9edf7;
+        box-shadow: 0 0 0 4px #d9edf7;
+        text-shadow: 1px 1px 2px #d9edf7;
+        text-align: center;
+    }
+
+    #s-plugin-payrem-cron-help p {
+        padding: 10px;
+        margin: 0;
+    }
+
+    #s-plugin-payrem-cron-help code {
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        background-color: #f9f2f4;
+        color: #c7254e;
+        border-radius: 3px;
+        font-size: 90%;
+        padding: 2px 4px;
+    }
+
+    #s-plugin-payrem-cron-help {
+
     }
 
     #s-plugin-payrem-sendtest label {
@@ -85,6 +116,17 @@
     }
 </style>
 <h1>{_wp('Payment Reminder Plugin Setup')}</h1>
+
+<div id="s-plugin-payrem-cron-help">
+    <p>Для корректной работы плагина необходимо настроить исполнение плагина по расписанию (cron).
+        Для этого добывьте в список заданий такую строку:
+        <br>
+        <code>{$cron_string}</code>
+        <br>
+        Подробнее о конфигурировании заданий в Cron можно прочитать в Документации фреймворка в разделе <a href="http://www.webasyst.ru/developers/docs/tips/cron/" target="_blank" title="откроется в новом окне">«Настройка Cron»</a>.
+    </p>
+</div>
+
 <div class="fields form">
     <form action="?module=plugins&id=payrem&action=save" method="post" id="plugins-settings-form"
           enctype="multipart/form-data" target="plugins-settings-iframe">

@@ -19,6 +19,7 @@ class shopPayremPluginSettingsAction extends waViewAction
         $this->getResponse()->setTitle(_wp('Payment Reminder plugin settings'));
         $this->view->assign('settings_controls', $this->getControls());
         $this->view->assign('testsend_orders', $this->getLastOrders());
+        $this->view->assign('cron_string', "12 */4 * * * /usr/bin/php -q " . wa()->getConfig()->getPath('root') . '/cli.php shop payremSend');
     }
 
     private function getControls()
