@@ -63,3 +63,14 @@ msgstr "Неверный адрес заказа"
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginSettings.action.php:19
 msgid "Payment Reminder plugin settings"
 msgstr "Настройки плагина Напоминание об Оплате"
+
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:202
+msgid "Sending…"
+msgstr "Отправка…"
+
+#: /wa-apps/shop/plugins/payrem/lib/cli/shopPayremSend.cli.php:80
+msgid "Payment reminder (%d day) sent to customer"
+msgid_plural "Payment reminder (%d days) sent to customer"
+msgstr[0] "Напоминание о платеже (%d день) отправлено покупателю"
+msgstr[1] "Напоминание о платеже (%d дня) отправлено покупателю"
+msgstr[2] "Напоминание о платеже (%d дней) отправлено покупателю"

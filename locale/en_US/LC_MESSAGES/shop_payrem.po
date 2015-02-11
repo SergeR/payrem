@@ -61,3 +61,13 @@ msgstr ""
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginSettings.action.php:19
 msgid "Payment Reminder plugin settings"
 msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:202
+msgid "Sending…"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/cli/shopPayremSend.cli.php:80
+msgid "Payment reminder (%d day) sent to customer"
+msgid_plural "Payment reminder (%d days) sent to customer"
+msgstr[0] ""
+msgstr[1] ""

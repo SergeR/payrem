@@ -76,7 +76,7 @@ class shopPayremSendCli extends waCliController
                                     'order_id'        => $order['id'],
                                     'contact_id'      => NULL,
                                     'action_id'       => NULL,
-                                    'text'            => '<i class="icon16 alarm-clock"></i>' . sprintf_wp("Payment reminder (%d days) sent to customer", $delay),
+                                    'text'            => '<i class="icon16 alarm-clock"></i>' . sprintf("Напоминание об оплате (%d д.) отправлено покупателю", $delay),
                                     'before_state_id' => $order['state_id'],
                                     'after_state_id'  => $order['state_id']
                                 ));
