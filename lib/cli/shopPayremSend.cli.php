@@ -69,6 +69,8 @@ class shopPayremSendCli extends waCliController
                         try {
                             $order = shopHelper::workupOrders($order, TRUE);
 
+                            // Fixme: Разобраться что там с локалью у консольных заданий
+
                             $result = $this->sendRemindMail($delay, $order);
                             if ($result && !$this->isTestRun()) {
                                 $this->OrderParam->insert(array('order_id' => $order['id'], 'name' => "payrem-$delay", 'value' => time()));

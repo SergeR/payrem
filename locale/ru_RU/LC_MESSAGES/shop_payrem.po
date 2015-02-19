@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shop/plugins/payrem\n"
-"POT-Creation-Date: 2015-02-02 13:48+0300\n"
+"POT-Creation-Date: 2015-02-12 03:53+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Serge Rodovnichenko <sergerod@gmail.com>\n"
 "Language-Team: shop/plugins/payrem\n"
@@ -16,41 +16,29 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: /wa-apps/shop/plugins/payrem/lib/config/settings.php:5
-msgid "Plugin active"
-msgstr "Плагин включен"
-
-#: /wa-apps/shop/plugins/payrem/lib/config/settings.php:16
-msgid "Order statuses"
-msgstr "Статусы заказов"
-
-#: /wa-apps/shop/plugins/payrem/lib/config/settings.php:28
-msgid "Payment methods"
-msgstr "Методы оплаты"
-
-#: /wa-apps/shop/plugins/payrem/lib/config/plugin.php:3
-msgid "Payment Reminder"
-msgstr "Напоминание об оплате"
-
-#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:81
-msgid "Payment Reminder Plugin Setup"
-msgstr "Настройка плагина Напоминание об Оплате"
-
-#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:94
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:148
 msgid "Save"
 msgstr "Сохранить"
 
-#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:142
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:118
+msgid "Payment Reminder Plugin Setup"
+msgstr "Настройка плагина Напоминание об оплате"
+
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:194
 msgid "Send test message"
 msgstr "Отправить пробное сообщение"
 
+#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:202
+msgid "Sending…"
+msgstr "Отправка…"
+
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:54
 msgid "Invalid e-mail"
-msgstr "Неверный адрес e-mail"
+msgstr "Неверный e-mail"
 
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:38
 msgid "Message sent. Check mailbox and system logs"
-msgstr "Сообщение отправлено. Проверьте почтовый ящик и системные логи"
+msgstr "Сообщение отправлено. Проверьте почтовый ящик и системные журналы"
 
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:58
 msgid "Invalid delay value"
@@ -58,19 +46,24 @@ msgstr "Неверное значение задержки"
 
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:62
 msgid "Invalid order number"
-msgstr "Неверный адрес заказа"
+msgstr "Неверный номер заказа"
 
 #: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginSettings.action.php:19
 msgid "Payment Reminder plugin settings"
 msgstr "Настройки плагина Напоминание об Оплате"
 
-#: /wa-apps/shop/plugins/payrem/templates/actions/settings/Settings.html:202
-msgid "Sending…"
-msgstr "Отправка…"
+#: /wa-apps/shop/plugins/payrem/lib/config/plugin.php:10
+msgid "Payment Reminder"
+msgstr "Напоминание об оплате"
 
-#: /wa-apps/shop/plugins/payrem/lib/cli/shopPayremSend.cli.php:80
-msgid "Payment reminder (%d day) sent to customer"
-msgid_plural "Payment reminder (%d days) sent to customer"
-msgstr[0] "Напоминание о платеже (%d день) отправлено покупателю"
-msgstr[1] "Напоминание о платеже (%d дня) отправлено покупателю"
-msgstr[2] "Напоминание о платеже (%d дней) отправлено покупателю"
+#: /wa-apps/shop/plugins/payrem/lib/config/settings.php:12
+msgid "Plugin active"
+msgstr "Плагин включен"
+
+#: /wa-apps/shop/plugins/payrem/lib/config/settings.php:23
+msgid "Order statuses"
+msgstr "Статусы заказов"
+
+#: /wa-apps/shop/plugins/payrem/lib/config/settings.php:35
+msgid "Payment methods"
+msgstr "Методы оплаты"
