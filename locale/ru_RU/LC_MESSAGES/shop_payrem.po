@@ -67,3 +67,19 @@ msgstr "Статусы заказов"
 #: /wa-apps/shop/plugins/payrem/lib/config/settings.php:35
 msgid "Payment methods"
 msgstr "Методы оплаты"
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:59
+msgid ""
+"Define one or more delays and <u>save</u> configuration before sending test "
+"mail."
+msgstr ""
+"Укажите одно или несколько значений задержки отправки и <u>сохраните</u> "
+"настройки перед отправкой тестовых писем."
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:61
+msgid "Valid delay values are: %s"
+msgstr "Значение должно быть одним из этих: %s"
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:63
+msgid "Invalid delay value."
+msgstr "Неверное значение задержки."

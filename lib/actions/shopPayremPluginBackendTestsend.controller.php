@@ -55,7 +55,12 @@ class shopPayremPluginBackendTestsendController extends waJsonController
         }
 
         if (!in_array($params->delay, $validDelays)) {
-            throw new waException(_wp('Invalid delay value'));
+            if(empty($validDelays)) {
+                $msg = _wp('Define one or more delays and <u>save</u> configuration before sending test mail.');
+            } else {
+                $msg = sprintf(_wp('Valid delay values are: %s'), implode(',', $validDelays));
+            }
+            throw new waException(_wp('Invalid delay value.') . ' ' . $msg);
         }
 
         if (!$ordersCollection->count()) {

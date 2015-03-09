@@ -65,3 +65,15 @@ msgstr ""
 #: /wa-apps/shop/plugins/payrem/lib/config/settings.php:35
 msgid "Payment methods"
 msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:59
+msgid "Define one or more delays and <u>save</u> configuration before sending test mail."
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:61
+msgid "Valid delay values are: %s"
+msgstr ""
+
+#: /wa-apps/shop/plugins/payrem/lib/actions/shopPayremPluginBackendTestsend.controller.php:63
+msgid "Invalid delay value."
+msgstr ""
